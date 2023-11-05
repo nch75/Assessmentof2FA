@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Configuration;
+using TwoFactorService;
 using TwoFactorService.Model;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 ConfigurationManager configuration = builder.Configuration;
 builder.Services.Configure<CodeSettings>(configuration.GetSection("CodeSettings"));
+builder.Services.AddMemoryCache();
+builder.Services.AddTransient<CodeService>();
 
 var app = builder.Build();
 
